@@ -2,9 +2,13 @@
  * Created by TinySymphony on 2017-01-03.
  */
 
-import {Dimensions, StyleSheet} from 'react-native';
+import {
+  Dimensions,
+  StyleSheet
+} from 'react-native';
+
 const window = Dimensions.get('window');
-const {width, height, scale} = window;
+const { width, height, scale } = window;
 
 export const Color = {
   disableColor: '#eaeaea',
@@ -84,7 +88,7 @@ export default StyleSheet.create({
     lineHeight: 20
   },
   scrollView: {
-    height: height * 0.6 - 80
+    flex: 1
   },
   buttonView: {
     borderBottomLeftRadius: 10,
