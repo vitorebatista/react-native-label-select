@@ -9,15 +9,11 @@ import {
 
 const window = Dimensions.get('window');
 const { width, height, scale } = window;
+const borderScale = 2 / scale;
 
 export const Color = {
   disableColor: '#eaeaea',
   main: '#40cca2'
-};
-
-export const IMG = {
-  closeIcon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABnElEQVRYR8WXy1HDMBCG/734Sjoh6QAqgBKgg/gij29wtC4uAegAKoASXEJKCFfPeMTIYxn5IVmvTHJM4v0+rbS7MuHKH7oyH6NAXde7tm3fpBARvTLGmpRynPM9gD4+gGcVfxTgnH8CeBj+cAZwn0pigH8D2A3xG8bYoV+sWuVMQH6dRGIFLmN/McYe5wJ7IcQPEd1oqY+SWIMLIX6J6G6xBRIqH0gl4QKfZEDbimgJV/iqQGwmfOBGgVAJX7hVwFciBL4p4CoRCncS2JIYDq/eZDAvNVtHdZ4FlhKV8VWH84I7Z2CjRMcF+qxcPeScgS2JELh3BtR5ADDZ85gB5pUBw2DRz5j37HAWMJVan8aIAeYkYKtzKRAzwDYFXJpMzBS1CrjAY6eoUcAHHiOxKhACD5VYCMTAQyQmAingvhL6rVje24On2trEM1VH13WHsixPk1ZcVVVDRLcqUGhvn4sYJJbXcl0gFdy0HUKIj6IoniYZGEzfiUj282OqtyJdAsCLEOKcZdkxz3PJ+X8zst1aLvnbZiu+JFzG/gPiB7Awgm9hrgAAAABJRU5ErkJggg==',
-  addIcon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA7ElEQVRYR+2X0QnCQAyG87cLuIF1EusEOoq+NPTJ+lSuLzqKTmDdRDdwgbvISRVEhGuVFiGBe8td/nyB+wlo4MDA9amzgLIskyiKjr4B59wsz/Nzl2Y6CzDGLAFsfVERWTHzrm8BBYB1I2DDzIUKUAJKQAn8NwH/t8dxPAcwCulERFIi8sdHDaAOvHe11h4e3vH0gqqqvJmMQx75NkdEzsw88e8MIoCILlmWJS8CGntdEFHQCAB4/NOGxklEgkZARFfn3P5tBG2xGmPUDZWAElACSmDYxaSx7/v/b61Ne1/N2nrHp/zOu+GvBNwAa6vsIVXzFTsAAAAASUVORK5CYII='
 };
 
 export default StyleSheet.create({
@@ -29,7 +25,7 @@ export default StyleSheet.create({
   },
   selectedItem: {
     margin: 4,
-    borderWidth: 2 / scale,
+    borderWidth: borderScale,
     borderRadius: 6,
     borderColor: '#aaa',
     flexDirection: 'row',
@@ -39,7 +35,7 @@ export default StyleSheet.create({
     backgroundColor: '#f6f6f6'
   },
   addItem: {
-    padding: 7
+    padding: 0
   },
   disableColor: {
     backgroundColor: Color.disableColor
@@ -59,9 +55,30 @@ export default StyleSheet.create({
     width: 10,
     height: 10
   },
+  viewClose: {
+    margin: -1.3
+  },
+  textClose: {
+    fontFamily: 'Arial',
+    color: '#999',
+    fontSize: 12,
+    marginLeft: 2,
+    marginRight: 2
+  },
   addIcon: {
     width: 12,
     height: 12
+  },
+  addText: {
+    color: '#999',
+    fontSize: 18
+  },
+  viewAddText: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    flexDirection: 'row',
+    height: 26,
+    width: 26
   },
   modalMask: {
     flex: 1,
@@ -123,11 +140,11 @@ export default StyleSheet.create({
     fontSize: 16
   },
   confirmButton: {
-    borderLeftWidth: 2 / scale,
+    borderLeftWidth: borderScale,
     borderLeftColor: '#fff'
   },
   outerCircle: {
-    borderWidth: 2 / scale,
+    borderWidth: borderScale,
     borderColor: '#888',
     width: 20,
     height: 20,

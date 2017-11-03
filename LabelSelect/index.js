@@ -2,21 +2,18 @@
  * Created by TinySymphony on 2017-01-03.
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  Image,
   Modal,
   ScrollView,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
-import Styles, { IMG } from './LabelSelectStyle';
+import Styles from './LabelSelectStyle';
 
 class LabelSelect extends Component {
-  addIcon = {
-    uri: IMG.addIcon
-  }
   static propTypes = {
     title: PropTypes.string,
     readOnly: PropTypes.bool,
@@ -85,7 +82,7 @@ class LabelSelect extends Component {
     } = this.props;
     const selectedLabels = React.Children.toArray(this.props.children)
       .filter(item => item.type === Label)
-      .map((child, index) => {
+      .map((child) => {
         return React.cloneElement(child, {
           enable,
           readOnly
@@ -94,7 +91,7 @@ class LabelSelect extends Component {
 
     const modalItems = this.state.isModalVisible ? React.Children.toArray(this.props.children)
       .filter(item => item.type === ModalItem)
-      .map((child, index) => {
+      .map((child) => {
         return React.cloneElement(child, {
           toggleSelect: this.toggleSelect
         });
@@ -103,23 +100,21 @@ class LabelSelect extends Component {
       <View style={ [Styles.selectedView, style] }>
         {selectedLabels}
         {enable && !readOnly && enableAddBtn
-          && <TouchableHighlight
+          && <TouchableOpacity
             style={ [Styles.selectedItem, Styles.addItem, customStyle.selectedItem] }
             underlayColor="transparent"
             onPress={ this.openModal }>
-            <Image
-              style={ Styles.addIcon }
-              source={ this.addIcon }
-              resizeMode="cover"
-            />
-          </TouchableHighlight>
+            <View style={ Styles.viewAddText }>
+              <Text style={ Styles.addText }>+</Text>
+            </View>
+          </TouchableOpacity>
         }
         <Modal
           transparent
           visible={ this.state.isModalVisible }
           onRequestClose={ () => {} }>
           <View style={ { flex: 1 } }>
-            <TouchableHighlight
+            <TouchableOpacity
               style={ Styles.modalMask }
               activeOpacity={ 1 }
               underlayColor="#00000077"
@@ -136,26 +131,26 @@ class LabelSelect extends Component {
                     </ScrollView>
                   </View>
                   <View style={ [Styles.buttonView, customStyle.buttonView || {}] }>
-                    <TouchableHighlight
+                    <TouchableOpacity
                       underlayColor="transparent"
                       activeOpacity={ 0.8 }
                       onPress={ this.cancelSelect }>
                       <View style={ [Styles.modalButton, customStyle.cancelButton || {}] }>
                         <Text style={ [Styles.buttonText, customStyle.cancelText || {}] }>{cancelText}</Text>
                       </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight
+                    </TouchableOpacity>
+                    <TouchableOpacity
                       underlayColor="transparent"
                       activeOpacity={ 0.8 }
                       onPress={ this.confirmSelect }>
                       <View style={ [Styles.modalButton, Styles.confirmButton, customStyle.confirmButton || {}] }>
                         <Text style={ [Styles.buttonText, customStyle.confirmText || {}] }>{confirmText}</Text>
                       </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </Modal>
       </View>
@@ -164,9 +159,6 @@ class LabelSelect extends Component {
 }
 
 class Label extends Component {
-  closeIcon = {
-    uri: IMG.closeIcon
-  }
   static propTypes = {
     onCancel: PropTypes.func,
     readOnly: PropTypes.bool,
@@ -178,9 +170,6 @@ class Label extends Component {
     readOnly: false,
     customStyle: {}
   }
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { enable, readOnly, onCancel, customStyle } = this.props;
     return (
@@ -189,18 +178,15 @@ class Label extends Component {
           style={ [Styles.labelText, !enable && Styles.disableText, customStyle.text || {}] }
           numberOfLines={ 1 }
           ellipsisMode="tail">{this.props.children}</Text>
-        {enable && !readOnly && <TouchableHighlight
-          style={ [ Styles.closeContainer, customStyle.closeContainer] }
+        {enable && !readOnly && <TouchableOpacity
+          style={ [Styles.closeContainer, customStyle.closeContainer] }
           underlayColor="transparent"
           activeOpacity={ 0.5 }
           onPress={ onCancel }>
-          <View>
-            <Image
-              style={ Styles.closeIcon }
-              source={ this.closeIcon }
-              resizeMode="cover" />
+          <View style={ Styles.viewClose }>
+            <Text style={ Styles.textClose }>X</Text>
           </View>
-        </TouchableHighlight>}
+        </TouchableOpacity>}
       </View>
     );
   }
@@ -229,7 +215,7 @@ class ModalItem extends Component {
       customStyle
     } = this.props;
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         activeOpacity={ 0.5 }
         underlayColor="transparent"
         onPress={ this._toggleSelect }>
@@ -244,7 +230,7 @@ class ModalItem extends Component {
             {this.isSelected && <View style={ [Styles.innerCircle, customStyle.innerCircle || {}] } />}
           </View>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }
